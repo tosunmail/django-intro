@@ -20,3 +20,19 @@ class Student(models.Model):
         verbose_name = 'Student'
       
         ordering = ["-first_name"] # Ters sıralam için (DESC) sutun isminin başına - konur.
+
+AGES = (
+    (10, 'Yaş: 10'),
+    (20, 'Yaş: 20'),
+    (30, 'Yaş: 30'),
+    (40, 'Yaş: 40'),
+    (50, 'Yaş: 50'),
+)
+class Customer(models.Model):
+      first_name = models.CharField(max_length=50)   
+      last_name = models.CharField(max_length=50)     
+      age = models.PositiveIntegerField(default=0, null=True , blank=True )
+
+      def __str__(self): # Kayıt yazdır.
+        return f'{self.first_name} {self.last_name} # {self.age}'
+      
