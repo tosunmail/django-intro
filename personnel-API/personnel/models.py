@@ -15,9 +15,9 @@ class Personnel(models.Model):
     first_name = models.CharField(max_length=30)
     last_name= models.CharField(max_length=30)
     GENDER = (
-        ('Male', 'M'),
-        ('Female', 'F'),
-        ('GEY' 'G')
+        ('F', 'Female'),
+        ('M', 'Male'),
+        ('N', 'Prefer not to say'),
     )
     gender = models.CharField(max_length=1, choices=GENDER)
     TITLE = (
