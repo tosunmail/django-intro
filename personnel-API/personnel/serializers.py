@@ -8,9 +8,18 @@ class DepartmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PersonnelSerializer(serializers.Serializer):
+class PersonnelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Personnel
-        fields = '__all__'
-        # exclude = []        
+        fields = ('first_name',
+                  'last_name',
+                  'title')
+        
+ 
+class DepartmentPersonnelSerializer(serializers.ModelSerializer):
+
+    personnel = PersonnelSerializer(many=True, read_only=True)
+    class Meta:
+        model = Department
+        fields = ('id','name','personnel')                      
