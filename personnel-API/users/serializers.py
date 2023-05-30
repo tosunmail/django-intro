@@ -2,7 +2,8 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
-
+from dj_rest_auth.serializers import TokenSerializer
+from .models import Profile
 
 class RegisterSerializer(serializers.ModelSerializer):
     
@@ -56,3 +57,36 @@ class RegisterSerializer(serializers.ModelSerializer):
             }
             raise serializers.ValidationError(data)
         return data 
+    
+
+class UserSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "username",
+            "email",
+        )
+
+class CustomTokenSerializer(TokenSerializer):
+    user = UserSerializer(read_only=True)
+    class Meta(TokenSerializer.Meta):
+        
+        fields = (
+            'key',
+            'user',
+            )
+        
+        
+class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField() 
+    
+    class Meta:
+        model = Profile
+        fields = (
+            'id',
+            'image',
+            'about',
+            'user'
+        )

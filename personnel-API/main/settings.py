@@ -44,9 +44,11 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'personnel',
     'users',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,3 +139,12 @@ REST_FRAMEWORK = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
+
+REST_AUTH = {
+    # 'TOKEN_SERIALIZER': 'path.to.custom.TokenSerializer',
+    'TOKEN_SERIALIZER': 'users.serializers.CustomTokenSerializer',
+}
+
+
+CORS_ALLOW_ALL_ORIGINS = True
+
