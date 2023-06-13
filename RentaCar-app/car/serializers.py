@@ -10,8 +10,14 @@ from .models import (
 # FixSerializer
 # ---------------------------------
 class FixSerializer(serializers.ModelSerializer):
-    pass
-
+     
+    user = serializers.StringRelatedField()
+    user_id = serializers.IntegerField(required=False, read_only=True )
+    
+    
+    def create(self, validated_data):
+        validated_data['user_id'] = self.context['request'].user.id
+        return super().create(validated_data)
 
 # ---------------------------------
 # CarSerializer
@@ -27,7 +33,9 @@ class CarSerializer(FixSerializer):
 # ReservationSerializer
 # ---------------------------------
 class ReservationSerializer(FixSerializer):
-
+    
+    car = serializers.StringRelatedField()
+    car_id = serializers.IntegerField()
     class Meta:
         model = Reservation
         exclude = []
