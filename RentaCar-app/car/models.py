@@ -34,7 +34,7 @@ class Car(FixModel):
         decimal_places = 2,
         validators = [MinValueValidator(1)]
     )
-    availability = models.BooleanField(default=True)
+    availability  = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.brand} {self.model} # {self.plate}'
@@ -46,7 +46,15 @@ class Car(FixModel):
 class Reservation(FixModel):
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     start_date = models.DateField()
-    end_date = models.DateField(default='2023-06-30')
+    end_date = models.DateField()
     
     def __str__(self):
         return f"[{self.user}] - {self.car} - {self.start_date} - {self.end_date}"
+    
+    class Meta:
+        # https://docs.djangoproject.com/en/4.2/ref/models/constraints/
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'start_date', 'end_date'], name='user_rent_date'
+            )
+        ]
