@@ -1,0 +1,8 @@
+{% extends 'home/base.html' %} {% block body %}
+
+<h1>Student Detail Page</h1>
+
+{% for student in students %}
+<li>{{student.first_name}} {{student.last_name}} - {{student.number}}</li>
+
+{% endfor %} {% endblock body %}

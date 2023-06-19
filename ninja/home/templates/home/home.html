@@ -1,0 +1,22 @@
+{% extends 'home/base.html' %} {% block body %} {% load static %}
+
+<h1>Student Page</h1>
+
+{{ first_name | title }}
+<br />
+<!-- {{ book_name | capfirst }} -->
+{{ book_name | truncatechars:5 }}
+<br />
+
+<!-- my comment for html -->
+{# my comment for dtl #} {% comment %} My multiple line comment {% endcomment %}
+
+<div>
+  {% for year in my_list %}
+  <li>{{ year }}</li>
+  {% endfor %}
+</div>
+
+<img src="{% static 'home/images/caddy.jpg' %}" alt="caddy" width="300px" />
+
+{% endblock body %}
