@@ -20,3 +20,18 @@ def student_detail(request):
         'students': students
     }
     return render(request,'home/student_detail.html', context)
+
+from .forms import StudentForm
+from django.shortcuts import redirect
+def student_add(request):
+    form = StudentForm()
+
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list')
+    context = { 
+        'form':form
+    }
+    return render(request, 'home/student_add.html', context)
